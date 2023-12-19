@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="32dp"
         android:textColor="#ffffff"
         android:textSize="24dp"
@@ -25,19 +25,111 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="570dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/rectangle">
+        android:background="@drawable/rectangle"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/checkbox_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:gravity="center">
+
+            <CheckBox
+                android:id="@+id/politic_btn"
+                android:layout_width="68dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:text="정치"
+                android:textSize="15sp"
+                android:stateListAnimator="@null"/>
+            <CheckBox
+                android:id="@+id/economy_btn"
+                android:layout_width="68dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:text="경제"
+                android:textSize="15sp"
+                android:stateListAnimator="@null"/>
+            <CheckBox
+                android:id="@+id/society_btn"
+                android:layout_width="68dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:text="사회"
+                android:textSize="15sp"
+                android:stateListAnimator="@null"/>
+            <CheckBox
+                android:id="@+id/life_btn"
+                android:layout_width="68dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:text="생활/문화"
+                android:textSize="15sp"
+                android:stateListAnimator="@null"/>
+            <CheckBox
+                android:id="@+id/IT_btn"
+                android:layout_width="68dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:text="IT/과학"
+                android:textSize="15sp"
+                android:stateListAnimator="@null"/>
+            <CheckBox
+                android:id="@+id/world_btn"
+                android:layout_width="68dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:text="세계"
+                android:textSize="15sp"
+                android:stateListAnimator="@null"/>
+
+        </LinearLayout>
+        </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hot_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="14dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginBottom="20dp"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             tools:listitem="@layout/bubbleitem_view"
             app:layout_constrainedHeight="true"

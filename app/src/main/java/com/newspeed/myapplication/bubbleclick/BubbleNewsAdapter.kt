@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.newspeed.myapplication.databinding.BubbleclickitemViewBinding
 
+//버블 클릭시 뜨는 카드뉴스에 대한 어댑터 코드
 class BubbleNewsAdapter(private val bubbledataSet: List<BubbleNewsData>) :
     RecyclerView.Adapter<BubbleNewsAdapter.BubbleViewHolder>() {
 
@@ -13,6 +14,8 @@ class BubbleNewsAdapter(private val bubbledataSet: List<BubbleNewsData>) :
 
         fun bind(item: BubbleNewsData, onItemClicked: (BubbleNewsData) -> Unit) {
             binding.bubblenewsTitle.text = item.title
+            binding.bubblenewsContent.text = item.content
+            binding.bubblenewsNid.text = item.nid.toString()
             // 클릭 이벤트 설정
             binding.root.setOnClickListener {
                 onItemClicked(item)
@@ -34,11 +37,11 @@ class BubbleNewsAdapter(private val bubbledataSet: List<BubbleNewsData>) :
     }
 
     override fun onBindViewHolder(holder: BubbleViewHolder, position: Int) {
-        holder.bind(bubbledataSet[position], onItemClicked)
+        val item = bubbledataSet[position]
+        holder.bind(item, onItemClicked)
     }
 
     override fun getItemCount(): Int {
         return bubbledataSet.size
     }
 }
-

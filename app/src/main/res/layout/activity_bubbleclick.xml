@@ -14,6 +14,7 @@
         android:background="@drawable/rectangle">
 
             <TextView
+                android:id="@+id/newstitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
@@ -28,6 +29,7 @@
             android:background="#69849D"/>
 
         <TextView
+            android:id="@+id/summarize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
@@ -43,8 +45,8 @@
                 android:id="@+id/myrecyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/bubbleclickitem_view"
-                android:scrollbars="vertical"/>
+                android:scrollbars="vertical"
+                tools:listitem="@layout/bubbleclickitem_view" />
 
         </LinearLayout>
 

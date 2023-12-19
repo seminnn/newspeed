@@ -3,19 +3,16 @@ package com.newspeed.myapplication
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.newspeed.myapplication.databinding.BubbleitemViewBinding
 
-
 class BubbleAdapter(
     private val context: Context,
-    private var data: List<String>,
-    private val onItemClick: (String) -> Unit
+    private var data: List<BubbleItem>,
+    private val onItemClick: (BubbleItem) -> Unit
+
 ) : RecyclerView.Adapter<BubbleAdapter.ViewHolder>() {
 
     private val itemColors = intArrayOf(
@@ -31,19 +28,26 @@ class BubbleAdapter(
         R.color.color10
     )
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val bubbleLayout: LinearLayout = itemView.findViewById(R.id.newsbubble)
-        val itemText: TextView = itemView.findViewById(R.id.newstitle)
+    inner class ViewHolder(val binding: BubbleitemViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                onItemClick(data[adapterPosition])
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(context)
         val binding = BubbleitemViewBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding.root)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemText.text = data[position]
+        val currentItem = data[position]
+        holder.binding.newstitle.text = currentItem.keyword
+        holder.binding.newscid.text = currentItem.cid
+        holder.binding.newssum.text = currentItem.sum_com.toString()
 
         val colorRes = itemColors[position % itemColors.size]
         val backgroundColor = ContextCompat.getColor(context, colorRes)
@@ -54,18 +58,14 @@ class BubbleAdapter(
             setColor(backgroundColor)
         }
 
-        holder.bubbleLayout.background = shapeDrawable
-
-        holder.itemView.setOnClickListener {
-            onItemClick(data[holder.adapterPosition])
-        }
+        holder.binding.newsbubble.background = shapeDrawable
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    fun updateData(newData: List<String>) {
+    fun updateData(newData: List<BubbleItem>) {
         data = newData
         notifyDataSetChanged()
     }
@@ -73,4 +73,3 @@ class BubbleAdapter(
     private val Int.dp: Int
         get() = (this * context.resources.displayMetrics.density).toInt()
 }
-
