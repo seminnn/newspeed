@@ -46,7 +46,7 @@
 
                 //아이디 입력
                 <EditText
-                android:id="@+id/login_ID"
+                android:id="@+id/login_Id"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
@@ -57,7 +57,7 @@
                 android:padding="10.00dp"
                 android:textColorHint="#CCCCCC"
                 android:textColor="#000000"
-                android:inputType="textPersonName"
+                android:inputType="none"
                 android:text="" />
 
                 <TextView
@@ -84,29 +84,6 @@
                 android:textColor="#000000"
                 android:inputType="textPassword" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="30dp"
-                    android:text="닉네임"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                //닉네임 입력
-                <EditText
-                    android:id="@+id/login_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/textbox"
-                    android:hint="닉네임"
-                    android:textSize="14dp"
-                    android:padding="10.00dp"
-                    android:textColorHint="#CCCCCC"
-                    android:textColor="#000000"
-                    android:inputType="textPassword" />
 
                 //로그인 버튼
                 <ImageView

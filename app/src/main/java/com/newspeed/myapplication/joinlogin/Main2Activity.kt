@@ -1,4 +1,4 @@
-package com.newspeed.myapplication
+package com.newspeed.myapplication.joinlogin
 
 import android.content.Intent
 import android.os.Bundle

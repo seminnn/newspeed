@@ -1,10 +1,8 @@
-package com.newspeed.myapplication
+package com.newspeed.myapplication.joinlogin
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import com.newspeed.myapplication.databinding.ActivityMainBinding
 
 

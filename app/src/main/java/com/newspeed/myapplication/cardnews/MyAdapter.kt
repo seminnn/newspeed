@@ -3,26 +3,28 @@ package com.newspeed.myapplication.cardnews
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.newspeed.myapplication.cardnews.ItemData
 import com.newspeed.myapplication.databinding.NewsitemViewBinding
 
-class MyAdapter(private val dataSet: List<ItemData>) :
+class MyAdapter(private val carddataSet: List<ItemData>) :
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
-
-    private var onItemClickListener: ((ItemData) -> Unit)? = null
 
     class MyViewHolder(private val binding: NewsitemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ItemData, onItemClickListener: ((ItemData) -> Unit)?) {
-            binding.newstitle.text = item.title
-            //binding.imageView.setImageResource(item.imageResourceId)
-
-            // Set click listener
+        fun bind(item: ItemData, onItemClicked: (ItemData) -> Unit) {
+            binding.cardnewsTitle.text = item.title
+            binding.cardnewsContent.text = item.content
+            binding.cardnewsNid.text = item.nid.toString()
+            // 클릭 이벤트 설정
             binding.root.setOnClickListener {
-                onItemClickListener?.invoke(item)
+                onItemClicked(item)
             }
         }
+    }
+    private var onItemClicked: (ItemData) -> Unit = {}
+
+    fun setOnItemClickListener(listener: (ItemData) -> Unit) {
+        onItemClicked = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -33,14 +35,11 @@ class MyAdapter(private val dataSet: List<ItemData>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(dataSet[position], onItemClickListener)
+        val item = carddataSet[position]
+        holder.bind(item, onItemClicked)
     }
 
     override fun getItemCount(): Int {
-        return dataSet.size
-    }
-
-    fun setOnItemClickListener(listener: (ItemData) -> Unit) {
-        onItemClickListener = listener
+        return carddataSet.size
     }
 }
