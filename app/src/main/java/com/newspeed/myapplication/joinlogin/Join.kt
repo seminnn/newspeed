@@ -19,10 +19,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class Join : AppCompatActivity() {
+
     private lateinit var binding: ActivityJoinBinding
     private val apiService: ApiService by lazy {
         Retrofit.Builder()
-            .baseUrl("http://192.168.0.12:5001")
+            .baseUrl("http://192.168.0.14:5001")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
@@ -46,21 +47,6 @@ class Join : AppCompatActivity() {
             val science = binding.seekbarScience.progress
             val world = binding.seekbarWorld.progress
 
-            // Initialize category variables
-            var politicsCategory: Int? = null
-            var economyCategory: Int? = null
-            var societyCategory: Int? = null
-            var cultureCategory: Int? = null
-            var scienceCategory: Int? = null
-            var worldCategory: Int? = null
-
-
-            if (politics > 0) { politicsCategory = politics }
-            if (economy > 0) { economyCategory = economy }
-            if (society > 0) { societyCategory = society }
-            if (culture > 0) { cultureCategory = culture }
-            if (science > 0) { scienceCategory = science }
-            if (world > 0) { worldCategory = world }
 
             // 수정된 부분: SignupRequest 객체 생성
             val signupRequest = SignupRequest(
@@ -68,7 +54,7 @@ class Join : AppCompatActivity() {
                 id = id,
                 passwd = pw,
                 category = listOfNotNull(
-                    politicsCategory, economyCategory, societyCategory, cultureCategory, scienceCategory, worldCategory)
+                    politics, economy, society, culture, science, world)
             )
 
 
@@ -81,11 +67,9 @@ class Join : AppCompatActivity() {
                         val signupResponse = response.body()
                         if (signupResponse != null) {
                             // 성공 처리
-                            val receivedToken = signupResponse.token
-                            saveAuthToken(receivedToken) // 토큰 저장
-                            val intent = Intent(this@Join, Login::class.java)
+                            val intent = Intent(this@Join, Join2::class.java)
                             startActivity(intent)
-                            Toast.makeText(this@Join, "회원가입 성공", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Join, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
                         } else {
                             // 응답이 null인 경우에 대한 처리
                             Toast.makeText(applicationContext, "서버 응답이 없습니다.", Toast.LENGTH_SHORT).show()
@@ -97,7 +81,7 @@ class Join : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
-                    val intent = Intent(this@Join, TestHottopic::class.java)
+                    val intent = Intent(this@Join, Join2::class.java)
                     startActivity(intent)
                     // 오류로 인한 실패 처리
                     Log.d("fail login", t.message.toString())

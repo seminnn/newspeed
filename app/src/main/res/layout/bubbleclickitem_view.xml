@@ -14,24 +14,13 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <CheckBox
-            android:id="@+id/bookmark_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="275dp"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:button="@null"
-            android:background="@drawable/custom_bookmark"
-            android:textSize="15sp"
-            android:stateListAnimator="@null"/>
-
         <TextView
             android:id="@+id/bubblenews_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="15dp"
             android:text="뉴스제목"
             android:textStyle="bold"

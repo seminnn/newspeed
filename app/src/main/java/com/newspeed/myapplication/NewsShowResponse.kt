@@ -8,5 +8,7 @@ data class NewsShowResponse(
     val img_url: String,
     val category: String,
     val j_info: String,
-    val company: String
+    val company: String,
+    val cid: Int, // 추가된 필드
+    val bookmark: Int // 추가된 필드
 )

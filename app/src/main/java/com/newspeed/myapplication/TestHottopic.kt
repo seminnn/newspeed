@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.arasthel.spannedgridlayoutmanager.SpanSize
 import com.arasthel.spannedgridlayoutmanager.SpannedGridLayoutManager
+import com.newspeed.myapplication.bookmark.Mypage
 import com.newspeed.myapplication.bubbleclick.BubbleClickActivity
 import com.newspeed.myapplication.cardnews.NewsActivity
 import com.newspeed.myapplication.databinding.FragmentHottopicBinding
@@ -37,11 +38,18 @@ class TestHottopic : AppCompatActivity() {
         binding = FragmentHottopicBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent1 = Intent(this, TestBubble::class.java)
-        binding.bubblebtn.setOnClickListener { startActivity(intent1) }
+        //화면전환
+        val intent1 = Intent(this, TestHottopic::class.java)
+        binding.hotbtn.setOnClickListener { startActivity(intent1) }
 
         val intent2 = Intent(this, NewsActivity::class.java)
         binding.cardbtn.setOnClickListener { startActivity(intent2) }
+
+        val intent3 = Intent(this, Mypage::class.java)
+        binding.mypagebtn.setOnClickListener { startActivity(intent3) }
+
+        val intent4 = Intent(this, TestBubble::class.java)
+        binding.bubblebtn.setOnClickListener { startActivity(intent4) }
 
         // 토큰
         responseToken = intent.getStringExtra("token").toString()
@@ -92,6 +100,7 @@ class TestHottopic : AppCompatActivity() {
             }
         }
 
+
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
 
@@ -122,7 +131,7 @@ class TestHottopic : AppCompatActivity() {
     //기사 목록을 버블에 띄우기
     private fun loadHotTopics(category: String) {
         val apiService = Retrofit.Builder()
-            .baseUrl("http://192.168.35.186:5001")  // 실제 서버 주소로 변경
+            .baseUrl("http://192.168.0.14:5001")  // 실제 서버 주소로 변경
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
@@ -138,10 +147,28 @@ class TestHottopic : AppCompatActivity() {
                     val hotTopics = response.body()
                     hotTopicsLiveData.value= hotTopics
                     if (hotTopics != null) {
+                        // sumCom 기준으로 내림차순 정렬
+                        val sortedHotTopics = hotTopics.sortedByDescending { it.sumCom }
+                        // hotTopicsLiveData에 정렬된 데이터를 업데이트
+                        hotTopicsLiveData.value = sortedHotTopics
                         // hotTopics를 BubbleItem으로 변환하여 RecyclerView에 적용
-                        val newData = BubbleItem.createFromHotTopics(hotTopics)
-                        Toast.makeText(applicationContext, "핫토픽 뉴스 추천", Toast.LENGTH_SHORT).show()
-                    } else {
+                        val sortedBubbles = hotTopics.sortedByDescending { it.sumCom }
+                        // 방금 전에 알려준 코드 추가
+                        val orderOfIndices = arrayOf(5, 1, 0, 8, 9, 7, 2, 3, 6, 4)
+                        val newData = orderOfIndices
+                            .filter { it < sortedBubbles.size } // 범위를 벗어나지 않도록 필터링
+                            .map { index ->
+                                BubbleItem(
+                                    keyword = sortedBubbles[index].keyword,
+                                    sum_com = sortedBubbles[index].sumCom,
+                                    cid = sortedBubbles[index].cid
+                                )
+                            }
+                        adapter.updateData(newData)
+                        adapter.notifyDataSetChanged()
+                        recyclerView.requestLayout() }
+
+                    else {
                         // 응답이 null인 경우에 대한 처리
                         Toast.makeText(applicationContext, "서버 응답이 없습니다.", Toast.LENGTH_SHORT).show()
                     }

@@ -19,16 +19,31 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bookmarkbtn"
+                    android:background="@drawable/check_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="북마크"
+                    android:layout_marginStart="250dp"
+                    android:layout_marginTop="25dp"/>
+
+            </LinearLayout>
             <TextView
                 android:id="@+id/article_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginRight="30dp"
-                android:textStyle="bold"
+                android:text="기사 제목"
                 android:textSize="24sp"
-                android:text="기사 제목"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/article_image"
