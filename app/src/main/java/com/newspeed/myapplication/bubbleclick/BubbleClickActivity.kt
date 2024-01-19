@@ -39,7 +39,7 @@ class BubbleClickActivity : AppCompatActivity() {
         // 토큰 받아오기
         responseToken = getAuthToken()
 
-        // 기사 조회 API 호출
+        // 요약 조회 API 호출
         val cidString = intent.getStringExtra("cid")
         if (cidString != null ) {
             cid = cidString.toInt() // Assign value to cid
@@ -77,7 +77,7 @@ class BubbleClickActivity : AppCompatActivity() {
     //
     private fun loadNewsDetails(cid:Int) {
         val apiService = Retrofit.Builder()
-            .baseUrl("http://192.168.35.186:5001")
+            .baseUrl("http://192.168.0.14:5001")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
@@ -105,7 +105,7 @@ class BubbleClickActivity : AppCompatActivity() {
                         binding.myrecyclerview.adapter = adapter
                         // 아이템 클릭 리스너 설정
                         adapter.setOnItemClickListener { clickedItem ->
-                            handleItemClick(clickedItem)
+                            handleItemClick(clickedItem, cid)
                         }
                     } else {
                         Toast.makeText(applicationContext, "서버 응답이 null입니다", Toast.LENGTH_SHORT).show()
@@ -125,7 +125,7 @@ class BubbleClickActivity : AppCompatActivity() {
     private fun sendNewsStayTimeToServer(timeSpent: Long, cid: String) {
         Log.d("////cid", cid)
         val apiService = Retrofit.Builder()
-            .baseUrl("http://192.168.35.186:5001")
+            .baseUrl("http://192.168.0.14:5001")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
@@ -154,11 +154,13 @@ class BubbleClickActivity : AppCompatActivity() {
         val adapter = BubbleNewsAdapter(bubbledataSet)
         recyclerView.adapter = adapter
     }
-    private fun handleItemClick(clickedItem: BubbleNewsData) {
-        // 클릭이벤트로 뉴스 조회 페이지 넘어가기
+    private fun handleItemClick(clickedItem: BubbleNewsData, cid: Int) {
         val intent = Intent(this, ArticleActivity::class.java)
-        //intent.putExtra("selectedItem", clickedItem.title)
+        intent.putExtra("token",responseToken) //토큰 전달
         intent.putExtra("nid", clickedItem.nid) // nid 값을 전달
+        intent.putExtra("cid", cid) // cid 값을 전달
+
         startActivity(intent)
     }
+
 }

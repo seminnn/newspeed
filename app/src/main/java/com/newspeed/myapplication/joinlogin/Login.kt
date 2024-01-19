@@ -38,7 +38,7 @@ class Login : AppCompatActivity() {
         Log.d("goto", "login")
 
         retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.35.186:5001") // 실제 서버 주소로 수정
+            .baseUrl("http://192.168.0.14:5001") // 실제 서버 주소로 수정
             .addConverterFactory(GsonConverterFactory.create())
             .addConverterFactory(nullOnEmptyConverterFactory)
             .build()
@@ -71,7 +71,7 @@ class Login : AppCompatActivity() {
                         val intent = Intent(this@Login, TestHottopic::class.java)
                         intent.putExtra("token", accessToken)
                         startActivity(intent)
-                        Toast.makeText(this@Login, "로그인 성공", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@Login, "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
 
                     } else {
                         Log.d("error", "login Response fail: ${response.errorBody()}")

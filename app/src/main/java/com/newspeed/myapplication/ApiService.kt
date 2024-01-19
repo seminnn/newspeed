@@ -1,5 +1,6 @@
 package com.newspeed.myapplication
 
+import com.newspeed.myapplication.bookmark.BookmarkData
 import com.newspeed.myapplication.cardnews.ItemData
 import retrofit2.Call
 import retrofit2.Response
@@ -7,6 +8,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.POST
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -39,13 +41,23 @@ interface ApiService {
 
     //기사 조회
     @GET("/news/show")
-    fun getNewsShow(@Query("nid") nid: Int): Call<NewsShowResponse>
+    fun getNewsShow(
+        @Header("Authorization") authHeader: String,
+        @Query("nid") nid: Int): Call<NewsShowResponse>
 
     //북마크
-    @POST("/bookmark/set")
-    fun setBookmark(@Body bookmarkRequest: BookmarkRequest): Call<Unit>
-    @DELETE("/bookmark/remove/{id}")
-    fun removeBookmark(@Path("id") id: Int, @Body bookmarkRequest: BookmarkRequest): Call<Unit>
+    @POST("/bookmarks/add")
+    fun addBookmark(
+        @Header("Authorization") authHeader: String,
+        @Body bookmarkRequest: BookmarkRequest): Call<BookmarkResponse>
+
+    @GET("/bookmarks/inquiry")
+    fun getBookmarks(@Header("Authorization") authorizationHeader: String): Call<List<BookmarkData>>
+
+    @HTTP(method = "DELETE", path = "/bookmarks/remove", hasBody = true)
+    fun deleteBookmark(
+        @Header("Authorization") authorizationHeader: String,
+        @Body request: BookmarkRequest): Call<BookmarkResponse>
 
     //카드뉴스
     @GET("news/cards")

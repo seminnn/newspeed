@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.arasthel.spannedgridlayoutmanager.SpanSize
 import com.arasthel.spannedgridlayoutmanager.SpannedGridLayoutManager
+import com.newspeed.myapplication.bookmark.Mypage
 import com.newspeed.myapplication.bubbleclick.BubbleClickActivity
 import com.newspeed.myapplication.cardnews.NewsActivity
 import com.newspeed.myapplication.databinding.FragmentBubbleBinding
@@ -37,11 +38,18 @@ class TestBubble : AppCompatActivity() {
 //        val receivedToken = "your_received_token"
 //        saveAuthToken(receivedToken)
 
+        //화면전환
         val intent1 = Intent(this, TestHottopic::class.java)
         binding.hotbtn.setOnClickListener { startActivity(intent1) }
 
         val intent2 = Intent(this, NewsActivity::class.java)
         binding.cardbtn.setOnClickListener { startActivity(intent2) }
+
+        val intent3 = Intent(this, Mypage::class.java)
+        binding.mypagebtn.setOnClickListener { startActivity(intent3) }
+
+        val intent4 = Intent(this, TestBubble::class.java)
+        binding.bubblebtn.setOnClickListener { startActivity(intent4) }
 
         // recyclerview
         recyclerView = binding.bubbleView
@@ -108,11 +116,22 @@ class TestBubble : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val bubbles = response.body()
                     if (bubbles != null) {
-                        val newData = BubbleItem.createFromBubbles(bubbles)
+                        // sumCom 기준으로 내림차순 정렬
+                        val sortedBubbles = bubbles.sortedByDescending { it.sumCom }
+
+                        val orderOfIndices = arrayOf(5, 1, 0, 8, 9, 7, 2, 3, 6, 4)
+                        val newData = orderOfIndices.map { index ->
+                            BubbleItem(
+                                keyword = sortedBubbles[index].keyword,
+                                sum_com = sortedBubbles[index].sumCom,
+                                cid = sortedBubbles[index].cid
+                            )
+                        }
+
                         adapter.updateData(newData)
                         adapter.notifyDataSetChanged()
                         recyclerView.requestLayout()
-                    } else {
+                    }else {
                         Toast.makeText(applicationContext, "서버 응답이 없습니다.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
@@ -126,6 +145,7 @@ class TestBubble : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<BubbleResponse>>, t: Throwable) {
+                Log.d("fail Bubble", t.message.toString())
                 Toast.makeText(applicationContext, "오류 발생: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
@@ -142,7 +162,7 @@ class TestBubble : AppCompatActivity() {
 
     private fun createApiService(): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.35.186:5001")
+            .baseUrl("http://192.168.0.14:5001")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

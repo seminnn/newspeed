@@ -50,7 +50,10 @@
         <activity android:name=".bookmark.BookmarkActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".Testtt"
+        <activity android:name=".joinlogin.Join2"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".bookmark.Mypage"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>

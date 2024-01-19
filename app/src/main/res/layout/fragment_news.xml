@@ -22,22 +22,6 @@
             android:textColor="#ffffff"
             android:textSize="24dp" />
 
-        <ImageView
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="75dp"
-            android:layout_marginStart="130dp"
-            android:src="@drawable/logout"/>
-
-        <ImageView
-            android:id="@+id/bookmark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="79dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/bookmark" />
-
     </LinearLayout>
 
     <View
@@ -50,7 +34,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="530dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
@@ -59,8 +43,8 @@
             android:id="@+id/myrecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/newsitem_view"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical"
+            tools:listitem="@layout/newsitem_view" />
 
     </LinearLayout>
 
@@ -73,26 +57,35 @@
 
         <ImageView
             android:id="@+id/cardbtn"
-            android:layout_marginTop="48dp"
-            android:layout_marginLeft="60dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_width="70dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="30dp"
             android:src="@drawable/card_off"/>
         <ImageView
             android:id="@+id/bubblebtn"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="85dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/home_off"/>
+            android:layout_marginTop="15dp"
+            android:layout_width="70dp"
+            android:layout_height="66dp"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/bubble_off"/>
 
         <ImageView
             android:id="@+id/hotbtn"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="80dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_width="70dp"
+            android:layout_height="67dp"
+            android:layout_marginLeft="25dp"
             android:src="@drawable/hot_off"/>
+
+
+        <ImageView
+            android:id="@+id/mypagebtn"
+            android:layout_marginTop="21dp"
+            android:layout_width="70dp"
+            android:layout_height="62dp"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/mypage_off"/>
 
 </LinearLayout>
 </LinearLayout>

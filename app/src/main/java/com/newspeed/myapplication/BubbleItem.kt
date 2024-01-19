@@ -6,7 +6,7 @@ data class BubbleItem(
     val cid: String
 ) {
     companion object {
-        // HotTopicResponse 리스트를 BubbleItem 리스트로 변환하는 메서드
+//         HotTopicResponse 리스트를 BubbleItem 리스트로 변환하는 메서드
         fun createFromHotTopics(hotTopics: List<HotTopicResponse>): List<BubbleItem> {
             return hotTopics.map { hotTopic ->
                 BubbleItem(
