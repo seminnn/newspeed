@@ -83,6 +83,8 @@ class ArticleActivity : AppCompatActivity() {
                         // 기사 정보를 화면에 표시
                         binding.articleTitle.text = newsItem.title
                         binding.articleContent.text = newsItem.content
+                        binding.articleCompany.text = newsItem.company
+                        binding.articleName.text = newsItem.j_info
 
                         // 이미지가 있는 경우에만 이미지를 불러옴
                         if (!newsItem.img_url.isNullOrEmpty()) {
