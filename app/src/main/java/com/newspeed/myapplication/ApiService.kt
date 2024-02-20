@@ -15,11 +15,11 @@ import retrofit2.http.Query
 
 interface ApiService {
     // 로그인 API 호출
-    @POST("login")
+    @POST("/auth/login")
     fun login(@Body loginRequest: LoginRequest): Call<LoginResponse>
 
     // 회원가입 API 호출
-    @POST("register")
+    @POST("/auth/register")
     fun registerUser(@Body request: SignupRequest): Call<SignupResponse>
 
     //핫토픽 뉴스 기사 목록
