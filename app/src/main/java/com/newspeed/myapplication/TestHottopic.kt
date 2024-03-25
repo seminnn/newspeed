@@ -30,8 +30,6 @@ class TestHottopic : AppCompatActivity() {
     private lateinit var layoutManager: SpannedGridLayoutManager
     // LiveData 선언
     private val hotTopicsLiveData: MutableLiveData<List<HotTopicResponse>> = MutableLiveData()
-    // 토큰 배포
-    private var responseToken: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,9 +49,6 @@ class TestHottopic : AppCompatActivity() {
         val intent4 = Intent(this, TestBubble::class.java)
         binding.bubblebtn.setOnClickListener { startActivity(intent4) }
 
-        // 토큰
-        responseToken = intent.getStringExtra("token").toString()
-        Log.d("////token", responseToken)
 
         // recyclerview
         recyclerView = binding.hotView
@@ -111,7 +106,7 @@ class TestHottopic : AppCompatActivity() {
         // 데이터 갱신
     }
 
-    private fun updateRecyclerViewData(category: String, ) {
+    private fun updateRecyclerViewData(category: String) {
         loadHotTopics(category)
     }
 
@@ -119,14 +114,11 @@ class TestHottopic : AppCompatActivity() {
         // 클릭한 아이템에 대한 처리
         val intent = Intent(this, BubbleClickActivity::class.java)
         //토큰 전달
-        intent.putExtra("token", responseToken)
         intent.putExtra("cid", selectedItem.cid)
         startActivity(intent)
     }
 
-    fun getToken(): String? {
-        return responseToken
-    }
+
 
     //기사 목록을 버블에 띄우기
     private fun loadHotTopics(category: String) {
@@ -136,7 +128,7 @@ class TestHottopic : AppCompatActivity() {
             .build()
             .create(ApiService::class.java)
 
-        val call = apiService.getHotTopics(category, responseToken)
+        val call = apiService.getHotTopics(category)
 
         call.enqueue(object : Callback<List<HotTopicResponse>> {
             override fun onResponse(
@@ -205,5 +197,4 @@ class TestHottopic : AppCompatActivity() {
             }
         }
     }
-
 }
