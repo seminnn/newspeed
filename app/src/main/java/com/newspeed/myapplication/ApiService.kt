@@ -15,19 +15,18 @@ import retrofit2.http.Query
 
 interface ApiService {
     // 로그인 API 호출
-    @POST("/auth/login")
+    @POST("login")
     fun login(@Body loginRequest: LoginRequest): Call<LoginResponse>
 
     // 회원가입 API 호출
-    @POST("/auth/register")
+    @POST("register")
     fun registerUser(@Body request: SignupRequest): Call<SignupResponse>
 
     //핫토픽 뉴스 기사 목록
     @GET("news/hot-topics")
     fun getHotTopics(
-        @Query("category") category: String,
-        @Header("Authorization") token: String
-        ): Call<List<HotTopicResponse>>
+        @Query("category") category: String
+    ): Call<List<HotTopicResponse>>
 
     //개인화 버블 목록
     @GET("news/recommendations")
@@ -66,5 +65,5 @@ interface ApiService {
     //체류시간 계산
     @POST("/news/staytime")
     suspend fun sendNewsStayTime(@Body request: NewsStayTimeRequest): Response<Unit>
-    }
+}
 
